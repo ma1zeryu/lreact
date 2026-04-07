@@ -1,48 +1,39 @@
 import React, { Component } from "react";
 
 class Box extends Component {
-  state = {
-    x: 0,
-    colors: ["red", "green", "blue"],
-  };
-
-  handleClickLeft = (step) => {
-    this.setState({
-      x: this.state.x - step,
-    });
-  };
-
-  handleClickRight = (step) => {
-    this.setState({
-      x: this.state.x + step,
-    });
-  };
+  // state = {
+  //   x: this.props.x,
+  //   colors: ["red", "green", "blue"],
+  // };
 
   render() {
     return (
       <React.Fragment>
         <div style={this.getStyles()}>{this.toString()}</div>
         <button
-          onClick={() => this.handleClickLeft(10)}
+          onClick={() => this.props.handleClickLeft(this.props.box.id, 10)}
           className="btn btn-primary m-2"
         >
           left
         </button>
         <button
-          onClick={() => this.handleClickRight(20)}
+          onClick={() => this.props.handleClickRight(this.props.box.id, 20)}
           className="btn btn-success m-2"
         >
           right
         </button>
-        {this.state.colors.map((color) => (
-          <div key={color}>{color}</div>
-        ))}
+        <button
+          className="btn btn-danger m-2"
+          onClick={() => this.props.onDelete(this.props.id)}
+        >
+          Delete
+        </button>
       </React.Fragment>
     );
   }
 
   toString() {
-    const { x } = this.state;
+    const x = this.props.box.x;
     return `x: ${x}`;
   }
 
@@ -54,10 +45,10 @@ class Box extends Component {
       textAlign: "center",
       lineHeight: "50px",
       borderRadius: "5px",
-      marginLeft: this.state.x,
+      marginLeft: this.props.box.x,
     };
 
-    if (this.state.x === 0) styles.backgroundColor = "orange";
+    if (this.props.box.x === 0) styles.backgroundColor = "orange";
     return styles;
   }
 }
