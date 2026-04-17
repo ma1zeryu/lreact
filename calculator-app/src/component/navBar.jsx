@@ -3,6 +3,60 @@ import { Link } from "react-router-dom";
 
 class NavBar extends Component {
   state = {};
+
+  render_calculator = () => {
+    if (this.props.is_login) {
+      return (
+        <li className="nav-item">
+          <Link className="nav-link" to="/calculator">
+            计算器
+          </Link>
+        </li>
+      );
+    } else {
+      return "";
+    }
+  };
+
+  render_user = () => {
+    if (this.props.is_login) {
+      return (
+        <React.Fragment>
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              aria-current="page"
+              to="/login"
+              style={{ cursor: "pointer" }}
+            >
+              {this.props.username}
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/register">
+              退出
+            </Link>
+          </li>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <li className="nav-item">
+            <Link className="nav-link" aria-current="page" to="/login">
+              登录
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/register">
+              注册
+            </Link>
+          </li>
+        </React.Fragment>
+      );
+    }
+  };
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -28,24 +82,9 @@ class NavBar extends Component {
                   首页
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/calculator">
-                  计算器
-                </Link>
-              </li>
+              {this.render_calculator()}
             </ul>
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className="nav-link" aria-current="page" to="/login">
-                  登录
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/register">
-                  注册
-                </Link>
-              </li>
-            </ul>
+            <ul className="navbar-nav">{this.render_user()}</ul>
           </div>
         </div>
       </nav>
