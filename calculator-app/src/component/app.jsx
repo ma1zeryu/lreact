@@ -11,8 +11,8 @@ import $ from "jquery";
 
 class App extends Component {
   state = {
-    is_login: false,
-    username: "yxc",
+    is_login: true,
+    username: "jyp",
   };
 
   componentDidMount() {
@@ -27,7 +27,7 @@ class App extends Component {
           });
         } else {
           this.setState({
-            is_login: false,
+            // is_login: false,
           });
         }
       },
