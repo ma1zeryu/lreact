@@ -6,19 +6,25 @@ import ACTIONS from "../../redux/actions.jsx";
 import OperationButton from "./calculator/operationButton.jsx";
 
 class Calculator extends Component {
-  state = {};
+  state = {
+    formater: Intl.NumberFormat("en-us"),
+  };
   render() {
     return (
       <Card>
         <div className="calculator">
           <div className="output">
             <div className="last-output">
-              {this.props.lastOperand}
+              {this.state.formater.format(this.props.lastOperand)}
               {this.props.operation}
             </div>
-            <div className="current-output">{this.props.currentOperand}</div>
+            <div className="current-output">
+              {this.state.formater.format(this.props.currentOperand)}
+            </div>
           </div>
-          <button className="button-ac">AC</button>
+          <button className="button-ac" onClick={this.props.clear}>
+            AC
+          </button>
           <button onClick={this.props.delete_digit}>Del</button>
           <OperationButton operation={"÷"}></OperationButton>
           <DigitButton digit={"7"} />
@@ -35,7 +41,9 @@ class Calculator extends Component {
           <OperationButton operation={"+"}></OperationButton>
           <DigitButton digit={"0"} />
           <DigitButton digit={"."} />
-          <button className="button-equal">=</button>
+          <button className="button-equal" onClick={this.props.evaluate}>
+            =
+          </button>
         </div>
       </Card>
     );
@@ -54,6 +62,16 @@ const mapDispatchToProps = {
   delete_digit: () => {
     return {
       type: ACTIONS.DELETE_DIGIT,
+    };
+  },
+  clear: () => {
+    return {
+      type: ACTIONS.CLEAR,
+    };
+  },
+  evaluate: () => {
+    return {
+      type: ACTIONS.EVALUATE,
     };
   },
 };

@@ -80,6 +80,26 @@ const reducer = (
         operation: action.operation,
         currentOperand: "",
       };
+    case ACTIONS.CLEAR:
+      return {
+        ...state,
+        currentOperand: "",
+        lastOperand: "",
+        operation: "",
+      };
+    case ACTIONS.EVALUATE:
+      if (
+        state.currentOperand === "" ||
+        state.lastOperand === "" ||
+        state.operation === ""
+      )
+        return state;
+      return {
+        ...state,
+        lastOperand: evaluate(state),
+        currentOperand: "",
+        operation: "",
+      };
     default:
       return state;
   }
