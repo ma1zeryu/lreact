@@ -96,3 +96,6 @@ Child render
 ```
 Child render   // 只执行一次
 ```
+
+组件的首字母必须大写
+
